@@ -1,205 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Caja Studio — Arquitectura</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700;900&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg: #F2EEEB;
-    --text: #4D4D4C;
-    --terracota: #A45541;
-    --beige: #EFDFD2;
-    --amarillo: #FCEBB5;
-    --verde: #A6D3B8;
-    --azul: #7E93B3;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    font-family:'Inter Tight', sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    overflow-x:hidden;
-  }
-  a{color:inherit;text-decoration:none;}
-
-  /* ---- Header ---- */
-  header{
-    position:fixed;top:0;left:0;right:0;z-index:100;
-    display:flex;align-items:center;justify-content:space-between;
-    padding:24px 40px;
-    background:transparent;
-    transition:background-color .3s ease, padding .3s ease;
-  }
-  header.scrolled{
-    background:var(--bg);
-    padding:16px 40px;
-    border-bottom:0.5px solid rgba(77,77,76,0.12);
-  }
-  .logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;color:var(--text);transition:color .3s ease;}
-  header:not(.scrolled) .logo{color:var(--bg);}
-  .logo svg circle{fill:currentColor;}
-  .logo svg rect{stroke:currentColor;}
-
-  nav{display:flex;gap:32px;font-size:13px;}
-  nav a{color:var(--text);position:relative;padding-bottom:4px;transition:color .3s ease;}
-  header:not(.scrolled) nav a{color:var(--bg);}
-  nav a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--terracota);transition:width .2s ease;}
-  nav a:hover::after{width:100%;}
-  nav a.active::after{width:100%;}
-
-  /* ---- Hero ---- */
-  .hero{
-    position:relative;
-    height:100vh;
-    overflow:hidden;
-    display:flex;
-    align-items:flex-end;
-  }
-  .hero-bg{
-    position:absolute;
-    top:0;left:0;
-    width:100%;
-    height:130%;
-    background-image:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80&fit=crop');
-    background-size:cover;
-    background-position:center;
-    will-change:transform;
-  }
-  .hero-overlay{
-    position:absolute;inset:0;
-    background:linear-gradient(to top, rgba(77,77,76,0.55), rgba(77,77,76,0.05) 60%);
-  }
-  .hero-content{
-    position:relative;
-    z-index:2;
-    padding:0 40px 80px;
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-    width:100%;
-  }
-  .hero-title{
-    font-size:clamp(48px, 9vw, 128px);
-    font-weight:900;
-    line-height:0.92;
-    color:var(--bg);
-  }
-  .hero-sub{
-    font-size:12px;
-    color:var(--bg);
-    text-align:right;
-    line-height:1.6;
-    opacity:.9;
-  }
-  .scroll-cue{
-    position:absolute;
-    bottom:32px;right:40px;
-    z-index:2;
-    display:flex;flex-direction:column;align-items:center;gap:8px;
-  }
-  .scroll-cue-line{
-    width:1px;height:40px;background:var(--bg);opacity:.6;
-    animation:scrollPulse 2s ease-in-out infinite;
-  }
-  @keyframes scrollPulse{0%,100%{opacity:.2}50%{opacity:.8}}
-
-  /* ---- Section wrapper ---- */
-  section{padding:120px 40px;}
-  .eyebrow{
-    font-size:11px;letter-spacing:.06em;text-transform:uppercase;
-    color:var(--text);opacity:.55;margin-bottom:24px;
-  }
-
-  /* ---- Featured projects (grid asimétrico 7+5) ---- */
-  .projects-grid{
-    display:grid;
-    grid-template-columns: 7fr 5fr;
-    gap:32px;
-  }
-  .project-card{cursor:pointer;}
-  .project-card img{
-    width:100%;height:420px;object-fit:cover;display:block;
-    transition:opacity .3s ease;
-  }
-  .project-card.small img{height:340px;margin-top:80px;}
-  .project-name{font-size:22px;font-weight:700;margin-top:16px;}
-  .project-meta{font-size:12px;opacity:.6;margin-top:4px;}
-  .project-card:hover img{opacity:.85;}
-
-  /* ---- Manifiesto ---- */
-  .manifesto{
-    background:var(--text);
-    color:var(--bg);
-    text-align:center;
-    padding:140px 40px;
-  }
-  .manifesto p{
-    font-size:clamp(24px, 4vw, 40px);
-    font-weight:700;
-    max-width:720px;
-    margin:0 auto;
-    line-height:1.4;
-    opacity:0;
-    transform:translateY(24px);
-    transition:opacity .8s ease, transform .8s ease;
-  }
-  .manifesto p.visible{opacity:1;transform:translateY(0);}
-
-  /* ---- Stats ---- */
-  .stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    text-align:center;
-    gap:24px;
-  }
-  .stat-num{font-size:56px;font-weight:900;}
-  .stat-num.c1{color:var(--terracota);}
-  .stat-num.c2{color:var(--verde);}
-  .stat-num.c3{color:var(--azul);}
-  .stat-label{font-size:12px;opacity:.6;margin-top:8px;}
-
-  /* ---- CTA ---- */
-  .cta{
-    background:var(--beige);
-    text-align:center;
-  }
-  .cta h2{font-size:clamp(28px,4vw,44px);font-weight:700;margin-bottom:28px;}
-  .btn-primary{
-    background:var(--terracota);color:var(--bg);
-    border:none;padding:16px 36px;font-size:13px;font-family:inherit;
-    border-radius:2px;cursor:pointer;
-    transition:background-color .2s ease, transform .2s ease;
-  }
-  .btn-primary:hover{background:#8a4636;transform:translateX(4px);}
-
-  /* ---- Footer ---- */
-  footer{
-    display:flex;justify-content:space-between;align-items:center;
-    padding:24px 40px;
-    font-size:12px;opacity:.6;
-    border-top:0.5px solid rgba(77,77,76,0.15);
-  }
-
-  @media (max-width:768px){
-    .projects-grid{grid-template-columns:1fr;}
-    .project-card.small img{margin-top:0;}
-    .hero-content{flex-direction:column;align-items:flex-start;gap:16px;}
-    .hero-sub{text-align:left;}
-    nav{display:none;}
-    section{padding:80px 24px;}
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto;}
-    .hero-bg{transform:none !important;}
-    .manifesto p{transition:none;opacity:1;transform:none;}
-    .scroll-cue-line{animation:none;}
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caja Studio — Arquitectura</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -217,7 +24,9 @@
 </header>
 
 <section class="hero" style="padding:0;">
-  <div class="hero-bg" id="heroBg"></div>
+  <div class="parallax-wrapper" style="position:absolute; inset:0; height:100vh;">
+    <div class="parallax parallax-bg" style="background-image:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80&fit=crop'); background-size:cover; background-position:center;"></div>
+  </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <div class="hero-title">crear.<br>construir.</div>
@@ -230,12 +39,16 @@
   <div class="eyebrow">proyectos destacados</div>
   <div class="projects-grid">
     <div class="project-card">
-      <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?w=1000&q=80&fit=crop" alt="El Bosque Habitado">
+      <div class="parallax-wrapper" style="height: 420px;">
+        <img class="parallax" data-speed="0.06" src="https://images.unsplash.com/photo-1449844908441-8829872d2607?w=1000&q=80&fit=crop" alt="El Bosque Habitado">
+      </div>
       <div class="project-name">el bosque habitado</div>
       <div class="project-meta">banská bystrica, eslovaquia · 2026 · mención de oro</div>
     </div>
     <div class="project-card small">
-      <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80&fit=crop" alt="Casa Pilar">
+      <div class="parallax-wrapper" style="height: 340px;">
+        <img class="parallax" data-speed="0.12" src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80&fit=crop" alt="Casa Pilar">
+      </div>
       <div class="project-name">casa pilar</div>
       <div class="project-meta">pilar, buenos aires · 2024</div>
     </div>
@@ -256,7 +69,7 @@
 
 <section class="cta">
   <h2>hablemos de tu próximo proyecto.</h2>
-  <button class="btn-primary">contacto →</button>
+  <a href="contacto.html" class="btn-primary" style="display:inline-block;">contacto →</a>
 </section>
 
 <footer>
@@ -265,43 +78,6 @@
   <span>© 2026</span>
 </footer>
 
-<script>
-  var header = document.getElementById('header');
-  var heroBg = document.getElementById('heroBg');
-  var manifesto = document.getElementById('manifestoText');
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var ticking = false;
-
-  function onScroll(){
-    var y = window.scrollY || window.pageYOffset;
-
-    if(y > 60){ header.classList.add('scrolled'); }
-    else{ header.classList.remove('scrolled'); }
-
-    if(!reduceMotion){
-      var offset = y * 0.35;
-      heroBg.style.transform = 'translateY(' + offset + 'px)';
-    }
-
-    ticking = false;
-  }
-
-  window.addEventListener('scroll', function(){
-    if(!ticking){
-      window.requestAnimationFrame(onScroll);
-      ticking = true;
-    }
-  });
-
-  var observer = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if(entry.isIntersecting){
-        manifesto.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.3 });
-  observer.observe(manifesto);
-</script>
-
+<script src="main.js"></script>
 </body>
 </html>
