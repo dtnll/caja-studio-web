@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proyectos — Caja Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F2EEEB;
+    --text: #4D4D4C;
+    --terracota: #A45541;
+    --beige: #EFDFD2;
+    --amarillo: #FCEBB5;
+    --verde: #A6D3B8;
+    --azul: #7E93B3;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter Tight', sans-serif;background:var(--bg);color:var(--text);}
+  a{color:inherit;text-decoration:none;}
+
+  header{
+    position:sticky;top:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 40px;
+    background:var(--bg);
+    border-bottom:0.5px solid rgba(77,77,76,0.12);
+  }
+  .logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;}
+  .logo svg circle{fill:currentColor;}
+  .logo svg rect{stroke:currentColor;}
+  nav{display:flex;gap:32px;font-size:13px;}
+  nav a{position:relative;padding-bottom:4px;}
+  nav a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--terracota);transition:width .2s ease;}
+  nav a:hover::after,nav a.active::after{width:100%;}
+
+  /* ---- Título + filtro ---- */
+  .page-head{
+    padding:60px 40px 32px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .page-title{font-size:clamp(36px,6vw,84px);font-weight:900;line-height:0.95;}
+  .filters{display:flex;gap:20px;font-size:13px;}
+  .filters button{
+    background:none;border:none;font-family:inherit;font-size:13px;color:var(--text);
+    opacity:.5;cursor:pointer;padding-bottom:4px;border-bottom:2px solid transparent;
+    transition:opacity .2s ease, border-color .2s ease;
+  }
+  .filters button.active,.filters button:hover{opacity:1;border-color:var(--terracota);}
+
+  /* ---- Mosaico denso ---- */
+  .mosaic{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    grid-auto-rows:110px;
+    gap:2px;
+    padding:0 40px;
+  }
+  .mosaic figure{
+    margin:0;position:relative;overflow:hidden;cursor:pointer;
+  }
+  .mosaic img{
+    width:100%;height:100%;object-fit:cover;display:block;
+    transition:transform .5s ease, filter .5s ease;
+  }
+  .mosaic figure:hover img{transform:scale(1.04);}
+  .mosaic figcaption{
+    position:absolute;left:8px;bottom:8px;
+    font-size:10px;color:#F2EEEB;
+    background:rgba(77,77,76,0.55);
+    padding:2px 7px;
+    opacity:0;transition:opacity .25s ease;
+  }
+  .mosaic figure:hover figcaption{opacity:1;}
+
+  .m-a{grid-column:span 2;grid-row:span 3;}
+  .m-b{grid-column:span 2;grid-row:span 2;}
+  .m-c{grid-column:span 2;grid-row:span 2;}
+  .m-d{grid-column:span 2;grid-row:span 3;}
+  .m-e{grid-column:span 2;grid-row:span 2;}
+  .m-f{grid-column:span 2;grid-row:span 2;}
+  .m-g{grid-column:span 3;grid-row:span 2;}
+  .m-h{grid-column:span 3;grid-row:span 2;}
+
+  /* ---- Índice en texto ---- */
+  .index-list{padding:120px 40px 100px;}
+  .index-eyebrow{font-size:11px;letter-spacing:.06em;text-transform:uppercase;opacity:.5;margin-bottom:24px;}
+  .index-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:22px 0;border-top:0.5px solid rgba(77,77,76,0.18);
+    font-size:clamp(20px,3vw,34px);font-weight:700;
+    transition:color .2s ease;
+  }
+  .index-row:last-child{border-bottom:0.5px solid rgba(77,77,76,0.18);}
+  .index-row:hover{color:var(--terracota);}
+  .index-cat{font-size:12px;font-weight:400;opacity:.55;}
+
+  footer{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:24px 40px;font-size:12px;opacity:.6;
+  }
+
+  @media (max-width:900px){
+    .mosaic{grid-template-columns:repeat(2,1fr);grid-auto-rows:140px;}
+    .m-a,.m-b,.m-c,.m-d,.m-e,.m-f,.m-g,.m-h{grid-column:span 1;grid-row:span 2;}
+    nav{display:none;}
+    .index-row{flex-direction:column;align-items:flex-start;gap:4px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">
+    <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="7" cy="7" r="6"/><rect x="9" y="4" width="10" height="12" fill="none" stroke-width="1.5"/></svg>
+    caja studio.
+  </a>
+  <nav>
+    <a href="index.html">inicio</a>
+    <a href="proyectos.html" class="active">proyectos</a>
+    <a href="estudio.html">estudio</a>
+    <a href="contacto.html">contacto</a>
+  </nav>
+</header>
+
+<div class="page-head">
+  <div class="page-title">proyectos.</div>
+  <div class="filters" id="filters">
+    <button class="active" data-cat="todos">todos</button>
+    <button data-cat="residencial">residencial</button>
+    <button data-cat="concurso">concurso</button>
+    <button data-cat="urbano">urbano</button>
+  </div>
+</div>
+
+<div class="mosaic" id="mosaic">
+  <figure class="m-a" data-cat="concurso"><img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?w=700&q=80&fit=crop" alt="El Bosque Habitado"><figcaption>el bosque habitado</figcaption></figure>
+  <figure class="m-b" data-cat="residencial"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700&q=80&fit=crop" alt="Casa U20"><figcaption>casa u20</figcaption></figure>
+  <figure class="m-c" data-cat="residencial"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=80&fit=crop" alt="Casa Pilar"><figcaption>casa pilar</figcaption></figure>
+  <figure class="m-d" data-cat="urbano"><img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=700&q=80&fit=crop" alt="Intervención Moyano Solá"><figcaption>moyano / solá</figcaption></figure>
+  <figure class="m-e" data-cat="concurso"><img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=700&q=80&fit=crop" alt="El Bosque Habitado, bosque"><figcaption>el bosque habitado</figcaption></figure>
+  <figure class="m-f" data-cat="residencial"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=80&fit=crop" alt="Casa Pilar, exterior"><figcaption>casa pilar</figcaption></figure>
+  <figure class="m-g" data-cat="urbano"><img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=900&q=80&fit=crop" alt="Intervención urbana, plaza"><figcaption>moyano / solá</figcaption></figure>
+  <figure class="m-h" data-cat="residencial"><img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=900&q=80&fit=crop" alt="Casa U20, interior"><figcaption>casa u20</figcaption></figure>
+</div>
+
+<div class="index-list">
+  <div class="index-eyebrow">índice completo</div>
+
+  <a class="index-row" href="#" data-cat="concurso">
+    <span>el bosque habitado</span>
+    <span class="index-cat">concurso · eslovaquia · 2026</span>
+  </a>
+  <a class="index-row" href="#" data-cat="residencial">
+    <span>casa u20</span>
+    <span class="index-cat">residencial · méxico · 2024</span>
+  </a>
+  <a class="index-row" href="#" data-cat="residencial">
+    <span>casa pilar</span>
+    <span class="index-cat">residencial · buenos aires · 2024</span>
+  </a>
+  <a class="index-row" href="#" data-cat="urbano">
+    <span>intervención moyano / solá</span>
+    <span class="index-cat">urbano · buenos aires · 2020</span>
+  </a>
+</div>
+
+<footer>
+  <span>caja studio.</span>
+  <span>inicio · proyectos · estudio · contacto</span>
+  <span>© 2026</span>
+</footer>
+
+<script>
+  var buttons = document.querySelectorAll('#filters button');
+  var tiles = document.querySelectorAll('#mosaic figure');
+  var rows = document.querySelectorAll('.index-row');
+
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      buttons.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var cat = btn.getAttribute('data-cat');
+
+      tiles.forEach(function(t){
+        var show = cat === 'todos' || t.getAttribute('data-cat') === cat;
+        t.style.display = show ? '' : 'none';
+      });
+      rows.forEach(function(r){
+        var show = cat === 'todos' || r.getAttribute('data-cat') === cat;
+        r.style.display = show ? '' : 'none';
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

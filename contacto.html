@@ -17,15 +17,12 @@
     --azul: #7E93B3;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
-  body{font-family:'Inter Tight', sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  body{font-family:'Inter Tight', sans-serif;background:var(--bg);color:var(--text);}
   a{color:inherit;text-decoration:none;}
 
   header{
-    position:sticky;top:0;z-index:100;
     display:flex;align-items:center;justify-content:space-between;
-    padding:16px 40px;
-    background:var(--bg);
-    border-bottom:0.5px solid rgba(77,77,76,0.12);
+    padding:24px 40px;
   }
   .logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;}
   .logo svg circle{fill:currentColor;}
@@ -35,31 +32,69 @@
   nav a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--terracota);transition:width .2s ease;}
   nav a:hover::after,nav a.active::after{width:100%;}
 
+  .top-block{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    gap:40px;
+    padding:20px 40px 60px;
+  }
+  .eyebrow{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text);opacity:.55;margin-bottom:10px;}
+  .email-big{
+    font-size:clamp(28px,4vw,48px);
+    font-weight:700;
+    border-bottom:2px solid transparent;
+    transition:border-color .2s ease;
+  }
+  .email-big:hover{border-color:var(--terracota);color:var(--terracota);}
+
+  .locations{display:flex;gap:64px;flex-wrap:wrap;}
+  .location h4{font-size:13px;font-weight:700;margin-bottom:10px;}
+  .location p{font-size:13px;line-height:1.6;opacity:.75;}
+  .location a{
+    display:inline-block;margin-top:8px;font-size:13px;font-weight:500;
+    color:var(--terracota);border-bottom:1px solid rgba(164,85,65,0.4);
+  }
+
+  .giant-cta{
+    display:block;
+    width:100%;
+    padding:0 24px 40px;
+    line-height:0.82;
+    font-weight:900;
+    color:var(--terracota);
+    font-size:clamp(90px, 17vw, 260px);
+    letter-spacing:-0.02em;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:clip;
+  }
+  .giant-cta:hover{color:#8a4636;}
+
   main{
     display:grid;
     grid-template-columns: 1fr 1fr;
-    min-height:calc(100vh - 65px);
+    background:var(--text);
   }
-
-  /* ---- Columna izquierda: formulario ---- */
   .form-side{
     padding:100px 60px;
     display:flex;
     flex-direction:column;
     justify-content:center;
   }
-  .eyebrow{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text);opacity:.55;margin-bottom:16px;}
-  .form-title{font-size:clamp(28px,3.5vw,42px);font-weight:900;line-height:1.05;margin-bottom:40px;}
+  .form-side .eyebrow{color:var(--bg);opacity:.5;}
+  .form-title{font-size:clamp(24px,3vw,34px);font-weight:900;line-height:1.1;margin-bottom:36px;color:var(--bg);}
 
   .field{position:relative;margin-bottom:32px;}
   .field input,.field textarea{
     width:100%;
     border:none;
-    border-bottom:1px solid rgba(77,77,76,0.3);
+    border-bottom:1px solid rgba(242,238,235,0.3);
     background:transparent;
     font-family:inherit;
     font-size:16px;
-    color:var(--text);
+    color:var(--bg);
     padding:8px 0;
     outline:none;
     transition:border-color .2s ease;
@@ -67,68 +102,42 @@
   }
   .field textarea{min-height:80px;}
   .field label{
-    position:absolute;
-    left:0;top:8px;
-    font-size:16px;
-    color:var(--text);
-    opacity:.5;
-    pointer-events:none;
-    transition:all .2s ease;
+    position:absolute;left:0;top:8px;
+    font-size:16px;color:var(--bg);opacity:.5;
+    pointer-events:none;transition:all .2s ease;
   }
   .field input:focus,.field textarea:focus{border-color:var(--terracota);}
   .field input:focus ~ label,
   .field input:not(:placeholder-shown) ~ label,
   .field textarea:focus ~ label,
   .field textarea:not(:placeholder-shown) ~ label{
-    top:-14px;
-    font-size:11px;
-    opacity:.7;
-    color:var(--terracota);
+    top:-14px;font-size:11px;opacity:.9;color:var(--terracota);
   }
 
   .btn-submit{
-    background:var(--terracota);
-    color:var(--bg);
-    border:none;
-    padding:16px 36px;
-    font-size:13px;
-    font-family:inherit;
-    border-radius:2px;
-    cursor:pointer;
-    align-self:flex-start;
-    display:flex;
-    align-items:center;
-    gap:8px;
+    background:var(--terracota);color:var(--bg);border:none;
+    padding:16px 36px;font-size:13px;font-family:inherit;border-radius:2px;
+    cursor:pointer;align-self:flex-start;display:flex;align-items:center;gap:8px;
     transition:background-color .2s ease, transform .2s ease;
   }
   .btn-submit:hover{background:#8a4636;transform:translateX(4px);}
-  .btn-submit svg{transition:transform .3s ease;}
-  .btn-submit:hover svg{transform:rotate(360deg);}
 
-  .form-note{font-size:11px;opacity:.5;margin-top:16px;}
+  .form-note{font-size:11px;opacity:.5;margin-top:16px;color:var(--bg);}
 
-  /* ---- Columna derecha: datos directos ---- */
   .info-side{
-    background:var(--text);
-    color:var(--bg);
     padding:100px 60px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    gap:48px;
+    display:flex;flex-direction:column;justify-content:center;gap:40px;
+    border-left:0.5px solid rgba(242,238,235,0.15);
   }
   .info-block .eyebrow{color:var(--bg);opacity:.5;}
-  .info-block a, .info-block p{
-    font-size:clamp(20px, 2.4vw, 30px);
-    font-weight:700;
-    line-height:1.4;
-    display:block;
+  .info-block a,.info-block p{
+    font-size:clamp(18px,2vw,24px);font-weight:700;line-height:1.4;display:block;color:var(--bg);
   }
   .info-block a{border-bottom:1px solid rgba(242,238,235,0.25);width:fit-content;}
-  .info-block a:hover{border-color:var(--bg);}
+  .info-block a:hover{border-color:var(--terracota);color:var(--terracota);}
   .socials{display:flex;gap:24px;font-size:13px;}
-  .socials a{opacity:.8;font-weight:500;}
-  .socials a:hover{opacity:1;}
+  .socials a{opacity:.8;font-weight:500;color:var(--bg);}
+  .socials a:hover{opacity:1;color:var(--terracota);}
 
   footer{
     display:flex;justify-content:space-between;align-items:center;
@@ -136,9 +145,12 @@
   }
 
   @media (max-width:900px){
-    main{grid-template-columns:1fr;}
-    .form-side,.info-side{padding:60px 24px;}
     nav{display:none;}
+    .top-block{flex-direction:column;}
+    main{grid-template-columns:1fr;}
+    .info-side{border-left:none;border-top:0.5px solid rgba(242,238,235,0.15);}
+    .form-side,.info-side{padding:60px 24px;}
+    .giant-cta{padding:0 16px 24px;font-size:clamp(60px,20vw,140px);}
   }
 </style>
 </head>
@@ -150,16 +162,40 @@
     caja studio.
   </a>
   <nav>
-    <a href="index.html">proyectos</a>
+    <a href="index.html">inicio</a>
+    <a href="proyectos.html">proyectos</a>
     <a href="estudio.html">estudio</a>
     <a href="contacto.html" class="active">contacto</a>
   </nav>
 </header>
 
-<main>
+<div class="top-block">
+  <div>
+    <div class="eyebrow">escribinos a</div>
+    <a href="mailto:arqjuancamilo95@gmail.com" class="email-big">arqjuancamilo95@gmail.com</a>
+  </div>
+
+  <div class="locations">
+    <div class="location">
+      <h4>buenos aires</h4>
+      <p>Coghlan, CABA<br>Argentina</p>
+      <a href="tel:+5491162304358">+54 9 11 6230 4358</a>
+    </div>
+    <div class="location">
+      <h4>redes</h4>
+      <p>respondemos en 1-2 días hábiles.</p>
+      <a href="https://linkedin.com/in/camilobonilla10" target="_blank">linkedin</a><br>
+      <a href="https://behance.net/cajastudio" target="_blank">behance</a>
+    </div>
+  </div>
+</div>
+
+<a href="#form" class="giant-cta">hablemos.</a>
+
+<main id="form">
   <div class="form-side">
-    <div class="eyebrow">contacto</div>
-    <div class="form-title">hablemos de tu próximo proyecto.</div>
+    <div class="eyebrow">contanos tu idea</div>
+    <div class="form-title">contale a caja studio sobre tu próximo proyecto.</div>
 
     <form name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field">
       <input type="hidden" name="form-name" value="contacto">
@@ -196,10 +232,6 @@
       <p>Buenos Aires,<br>Argentina.</p>
     </div>
     <div class="info-block">
-      <div class="eyebrow">email</div>
-      <a href="mailto:arqjuancamilo95@gmail.com">arqjuancamilo95@gmail.com</a>
-    </div>
-    <div class="info-block">
       <div class="eyebrow">teléfono</div>
       <a href="tel:+5491162304358">+54 9 11 6230 4358</a>
     </div>
@@ -215,7 +247,7 @@
 
 <footer>
   <span>caja studio.</span>
-  <span>proyectos · estudio · contacto</span>
+  <span>inicio · proyectos · estudio · contacto</span>
   <span>© 2026</span>
 </footer>
 
