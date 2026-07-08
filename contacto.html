@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contacto — Caja Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F2EEEB;
+    --text: #4D4D4C;
+    --terracota: #A45541;
+    --beige: #EFDFD2;
+    --amarillo: #FCEBB5;
+    --verde: #A6D3B8;
+    --azul: #7E93B3;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter Tight', sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  a{color:inherit;text-decoration:none;}
+
+  header{
+    position:sticky;top:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 40px;
+    background:var(--bg);
+    border-bottom:0.5px solid rgba(77,77,76,0.12);
+  }
+  .logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;}
+  .logo svg circle{fill:currentColor;}
+  .logo svg rect{stroke:currentColor;}
+  nav{display:flex;gap:32px;font-size:13px;}
+  nav a{position:relative;padding-bottom:4px;}
+  nav a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--terracota);transition:width .2s ease;}
+  nav a:hover::after,nav a.active::after{width:100%;}
+
+  main{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    min-height:calc(100vh - 65px);
+  }
+
+  /* ---- Columna izquierda: formulario ---- */
+  .form-side{
+    padding:100px 60px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .eyebrow{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text);opacity:.55;margin-bottom:16px;}
+  .form-title{font-size:clamp(28px,3.5vw,42px);font-weight:900;line-height:1.05;margin-bottom:40px;}
+
+  .field{position:relative;margin-bottom:32px;}
+  .field input,.field textarea{
+    width:100%;
+    border:none;
+    border-bottom:1px solid rgba(77,77,76,0.3);
+    background:transparent;
+    font-family:inherit;
+    font-size:16px;
+    color:var(--text);
+    padding:8px 0;
+    outline:none;
+    transition:border-color .2s ease;
+    resize:none;
+  }
+  .field textarea{min-height:80px;}
+  .field label{
+    position:absolute;
+    left:0;top:8px;
+    font-size:16px;
+    color:var(--text);
+    opacity:.5;
+    pointer-events:none;
+    transition:all .2s ease;
+  }
+  .field input:focus,.field textarea:focus{border-color:var(--terracota);}
+  .field input:focus ~ label,
+  .field input:not(:placeholder-shown) ~ label,
+  .field textarea:focus ~ label,
+  .field textarea:not(:placeholder-shown) ~ label{
+    top:-14px;
+    font-size:11px;
+    opacity:.7;
+    color:var(--terracota);
+  }
+
+  .btn-submit{
+    background:var(--terracota);
+    color:var(--bg);
+    border:none;
+    padding:16px 36px;
+    font-size:13px;
+    font-family:inherit;
+    border-radius:2px;
+    cursor:pointer;
+    align-self:flex-start;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    transition:background-color .2s ease, transform .2s ease;
+  }
+  .btn-submit:hover{background:#8a4636;transform:translateX(4px);}
+  .btn-submit svg{transition:transform .3s ease;}
+  .btn-submit:hover svg{transform:rotate(360deg);}
+
+  .form-note{font-size:11px;opacity:.5;margin-top:16px;}
+
+  /* ---- Columna derecha: datos directos ---- */
+  .info-side{
+    background:var(--text);
+    color:var(--bg);
+    padding:100px 60px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:48px;
+  }
+  .info-block .eyebrow{color:var(--bg);opacity:.5;}
+  .info-block a, .info-block p{
+    font-size:clamp(20px, 2.4vw, 30px);
+    font-weight:700;
+    line-height:1.4;
+    display:block;
+  }
+  .info-block a{border-bottom:1px solid rgba(242,238,235,0.25);width:fit-content;}
+  .info-block a:hover{border-color:var(--bg);}
+  .socials{display:flex;gap:24px;font-size:13px;}
+  .socials a{opacity:.8;font-weight:500;}
+  .socials a:hover{opacity:1;}
+
+  footer{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:24px 40px;font-size:12px;opacity:.6;
+  }
+
+  @media (max-width:900px){
+    main{grid-template-columns:1fr;}
+    .form-side,.info-side{padding:60px 24px;}
+    nav{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">
+    <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="7" cy="7" r="6"/><rect x="9" y="4" width="10" height="12" fill="none" stroke-width="1.5"/></svg>
+    caja studio.
+  </a>
+  <nav>
+    <a href="index.html">proyectos</a>
+    <a href="estudio.html">estudio</a>
+    <a href="contacto.html" class="active">contacto</a>
+  </nav>
+</header>
+
+<main>
+  <div class="form-side">
+    <div class="eyebrow">contacto</div>
+    <div class="form-title">hablemos de tu próximo proyecto.</div>
+
+    <form name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="contacto">
+      <p style="display:none">
+        <label>No completar: <input name="bot-field"></label>
+      </p>
+
+      <div class="field">
+        <input type="text" name="nombre" id="nombre" placeholder=" " required>
+        <label for="nombre">nombre</label>
+      </div>
+
+      <div class="field">
+        <input type="email" name="email" id="email" placeholder=" " required>
+        <label for="email">email</label>
+      </div>
+
+      <div class="field">
+        <textarea name="mensaje" id="mensaje" placeholder=" " required></textarea>
+        <label for="mensaje">contanos sobre tu proyecto</label>
+      </div>
+
+      <button type="submit" class="btn-submit">
+        enviar
+        <svg width="14" height="14" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      </button>
+      <div class="form-note">respondemos en 1-2 días hábiles.</div>
+    </form>
+  </div>
+
+  <div class="info-side">
+    <div class="info-block">
+      <div class="eyebrow">ubicación</div>
+      <p>Buenos Aires,<br>Argentina.</p>
+    </div>
+    <div class="info-block">
+      <div class="eyebrow">email</div>
+      <a href="mailto:arqjuancamilo95@gmail.com">arqjuancamilo95@gmail.com</a>
+    </div>
+    <div class="info-block">
+      <div class="eyebrow">teléfono</div>
+      <a href="tel:+5491162304358">+54 9 11 6230 4358</a>
+    </div>
+    <div class="info-block">
+      <div class="eyebrow">redes</div>
+      <div class="socials">
+        <a href="https://linkedin.com/in/camilobonilla10" target="_blank">linkedin</a>
+        <a href="https://behance.net/cajastudio" target="_blank">behance</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <span>caja studio.</span>
+  <span>proyectos · estudio · contacto</span>
+  <span>© 2026</span>
+</footer>
+
+</body>
+</html>
